@@ -1,0 +1,14 @@
+extends ../includes/layout
+
+block content
+  .container
+    .row
+      each movie in movies
+        .col-md-2
+          .thumbnail
+            a(href="/movies/#{movie._id}")
+              img(src="#{movie.poster}",alt="#{movie.title}")
+          .caption
+            h3 #{movie.title}
+            p: a.btn.btn-primary(href="/movies/#{movie._id}",role="button")
+              观看预告片

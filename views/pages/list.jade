@@ -1,0 +1,28 @@
+extends ../includes/layout
+
+block content
+  .container
+    .row
+      table.table.table-hover
+        thead
+          tr
+            th 电影名称
+            th 导演
+            th 国家
+            th 上映年份
+            //-th 录入时间
+            th 查看
+            th 更新
+            th 删除
+        tbody
+          each movie in movies
+            tr
+              td #{movie.title}
+              td #{movie.doctor}
+              td #{movie.country}
+              td #{movie.year}
+              //-td #{moment(movie.meta.createAt).format('YYYY-MM-DD')}
+              td: a(target='_blank',href='../movies/#{movie._id}') 查看
+              td: a(target='_blank',href='../movies/#{movie._id}') 修改
+              td
+                button.btn.btn-danger.del(type='button',data-id='#{movie._id}') 删除
