@@ -11,7 +11,7 @@ block content
         .form-group
           label.col-md-2.control-label(for='inputDoctor') 电影导演
           .col-md-10
-            input#inputDocotor(type='text',name='movie[doctor]',value='#{movie.doctor}')
+            input#inputDocotor.form-control(type='text',name='movie[doctor]',value='#{movie.doctor}')
         .form-group
           label.col-md-2.control-label(for='inputCountry') 国家
           .col-md-10
@@ -19,7 +19,7 @@ block content
         .form-group
           label.col-md-2.control-label(for='inputLanguage') 语种
           .col-md-10
-            input#inputLanguage(type='text',name='movie[language]',value='#{movie.language}')
+            input#inputLanguage.form-control(type='text',name='movie[language]',value='#{movie.language}')
         .form-group
           label.col-md-2.control-label(for='inputPoster') 海报地址
           .col-md-10
@@ -27,7 +27,7 @@ block content
         .form-group
           label.col-md-2.control-label(for='inputFlash') 片源地址
           .col-md-10
-            input#inputFlash(type='text',name='movie[flash]',value='#{movie.flash}')
+            input#inputFlash.form-control(type='text',name='movie[flash]',value='#{movie.flash}')
         .form-group
           label.col-md-2.control-label(for='inputYear') 上映年份
           .col-md-10
@@ -35,4 +35,4 @@ block content
         .form-group
           label.col-md-2.control-label(for='inputSummary') 简介
           .col-md-10
-            input#inputSummary(type='text',name='movie[summary]',value='#{movie.summary}')
+            input#inputSummary.form-control(type='text',name='movie[summary]',value='#{movie.summary}')
