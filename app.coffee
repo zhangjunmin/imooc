@@ -5,7 +5,11 @@
 express = require 'express'
 port    = process.env.PORT || 3000
 path = require 'path'
+mongoose = require 'mongoose'
+_ = require 'underscore'
+Movie = require './models/movie'
 
+mongoose.connect('mongodb://localhost/imooc')
 app = express()
 app.set 'views', './views/pages'
 app.set 'view engine', 'jade'
@@ -22,59 +26,21 @@ app.listen port, ->
 
 #index
 app.get '/', (req, res) ->
-  res.render 'index',
-    title : 'immooc 首页',
-    movies :[{
-      title:'机械战警',
-      _id : 1,
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    },{
-      title:'机械战警',
-      _id : 1,
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    },{
-      title:'机械战警',
-      _id : 1,
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    },{
-      title:'机械战警'
-      _id : 1
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    },{
-      title:'机械战警'
-      _id : 2
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    },{
-      title:'机械战警'
-      _id : 3
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    },{
-      title:'机械战警'
-      _id : 4
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    },{
-      title:'机械战警'
-      _id : 5,
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    },{
-      title:'机械战警'
-      _id : 6
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-    }]
+  Movie.fetch (err,movies)->
+    return console.log(err) if err
+    res.render 'index',
+      title : 'immooc 首页'
+      movies : movies
 
 #detail
 app.get '/movies/:id', (req, res) ->
-  res.render 'detail',
-    title : 'immooc 详情页'
-    movie :
-      doctor: '迈克尔.贝'
-      country:'美国'
-      title:'机械战警'
-      language:'英语'
-      year :2014
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-      flash :'http://static.youku.com/v1.0.0485/v/swf/loader.swf'
-      summary:'诱骗少女奸杀案”二审维持原判 丈夫死刑妻子无期 141124'
+  id = req.params.id
+  Movie.findById id,(err,movie) ->
+    console.log(movie)
+    return console.log(err) if err
+    res.render 'detail',
+      title : 'immooc 详情页'
+      movie :  movie
 
 #admin
 app.get '/admin/movie', (req, res) ->
@@ -90,28 +56,47 @@ app.get '/admin/movie', (req, res) ->
       flash :''
       summary:''
 
+#admin update
+app.get '/admin/update/:id',(req,res)->
+  id = req.params.id
+  if id?
+    Movie.findById id, (err,movie) ->
+      res.render 'admin',
+        title : 'imooc 后台更新页'
+        movie : movie
+
+#admin post
+
+app.post '/admin/movie/new', (req, res) ->
+
+  id = req.body.movie._id
+  movieObj = req.body.movie
+  _movie = null
+  if id isnt 'undefined'
+    Movie.findById id, (err,movie) ->
+      return console.log(err) if err
+      _movie = _.extend movie, movieObj
+      _movie.save (err,movie)->
+        return console.log(err) if err
+        res.redirect "/movies/#{movie._id}"
+  else
+    console.log 'new'
+    _movie = new Movie
+      doctor : movieObj.doctor
+      title : movieObj.title
+      country : movieObj.country
+      language : movieObj.language
+      year : movieObj.year
+      poster : movieObj.poster
+      summary : movieObj.summary
+      flash : movieObj.flash
+    _movie.save (err,movie)->
+      return console.log(err) if err
+      res.redirect "/movies/#{movie._id}"
 #list
 app.get '/admin/list', (req, res) ->
-  res.render 'list',
-    title : 'immooc 后台列表页'
-    movies: [{
-      _id:1
-      doctor: '迈克尔.贝'
-      country:'美国'
-      title:'机械战警'
-      language:'英语'
-      year :2014
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-      flash :'http://static.youku.com/v1.0.0485/v/swf/loader.swf'
-      summary:'诱骗少女奸杀案”二审维持原判 丈夫死刑妻子无期 141124'
-    },{
-      _id:2
-      doctor: '迈克尔.贝'
-      country:'美国'
-      title:'机械战警'
-      language:'英语'
-      year :2014
-      poster:'http://r4.ykimg.com/0515000054730D3A6737B37AED092F66'
-      flash :'http://static.youku.com/v1.0.0485/v/swf/loader.swf'
-      summary:'诱骗少女奸杀案”二审维持原判 丈夫死刑妻子无期 141124'
-    }]
+  Movie.fetch (err,movies)->
+    return console.log(err) if err
+    res.render 'list',
+      title : 'immooc 后台列表页'
+      movies : movies
