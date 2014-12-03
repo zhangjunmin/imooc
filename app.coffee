@@ -65,6 +65,14 @@ app.get '/admin/update/:id',(req,res)->
         title : 'imooc 后台更新页'
         movie : movie
 
+#admin delete
+app.delete '/movies/:id',(req,res)->
+  id = req.params.id
+  Movie.findById id, (err,movie) ->
+    return console.log(err) if err
+    movie.remove()
+    res.send(200)
+
 #admin post
 
 app.post '/admin/movie/new', (req, res) ->
