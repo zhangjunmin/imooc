@@ -7,10 +7,12 @@ port    = process.env.PORT || 3000
 path = require 'path'
 mongoose = require 'mongoose'
 _ = require 'underscore'
+moment = require 'moment'
 Movie = require './models/movie'
 
 mongoose.connect('mongodb://localhost/imooc')
 app = express()
+app.locals.moment = moment
 app.set 'views', './views/pages'
 app.set 'view engine', 'jade'
 
