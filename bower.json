@@ -1,0 +1,27 @@
+{
+  "name": "imooc",
+  "version": "0.0.1",
+  "homepage": "https://github.com/zhangjunmin/imooc",
+  "authors": [
+    "zjm"
+  ],
+  "description": "前端",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "imooc"
+  ],
+  "license": "mit",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resource/public",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1"
+  }
+}

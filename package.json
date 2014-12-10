@@ -1,6 +1,6 @@
 {
   "name": "imooc",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "async": "^0.9.0",
     "express": "3.9.0",
@@ -8,5 +8,24 @@
     "moment": "^2.8.4",
     "mongoose": "^3.8.19",
     "underscore": "^1.7.0"
-  }
+  },
+  "description": "learning nodejs",
+  "main": "app.coffe",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhangjunmin/imooc.git"
+  },
+  "keywords": [
+    "movie"
+  ],
+  "author": "zjm",
+  "license": "isc",
+  "bugs": {
+    "url": "https://github.com/zhangjunmin/imooc/issues"
+  },
+  "homepage": "https://github.com/zhangjunmin/imooc"
 }
