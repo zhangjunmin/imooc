@@ -17,7 +17,7 @@ app.set 'views', './views/pages'
 app.set 'view engine', 'jade'
 
 app.use express.bodyParser()
-app.use express.static(path.join(__dirname,'bower_components'))
+app.use express.static(path.join(__dirname,'resource'))
 
 app.listen port, ->
   console.log("server is running at port: #{port}")

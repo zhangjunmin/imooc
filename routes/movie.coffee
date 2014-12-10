@@ -48,9 +48,8 @@ module.exports = (app)->
   #admin delete
   app.delete '/movies/:id',(req,res)->
     id = req.params.id
-    Movie.findById id, (err,movie) ->
+    Movie.remove id, (err,movie) ->
       return console.log(err) if err
-      movie.remove()
       res.send(200)
 
   #admin post
