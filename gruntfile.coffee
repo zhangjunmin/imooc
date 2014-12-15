@@ -17,6 +17,7 @@ module.exports = (grunt) ->
         options :
           file : 'app.coffee'
           args : []
+          exec: 'coffee app.coffee',
           ignoreFiles :['README.md','node_modules/**','.DS_Store']
           watchedExtensions:['coffee','js']
           watchedFolders : ['app','config']
@@ -32,5 +33,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-nodemon'
   grunt.loadNpmTasks 'grunt-concurrent'
+  grunt.loadNpmTasks 'grunt-coffee'
   grunt.option 'force', on
   grunt.registerTask 'default', ['concurrent']
